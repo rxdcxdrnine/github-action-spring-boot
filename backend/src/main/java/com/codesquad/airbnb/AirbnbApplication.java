@@ -10,4 +10,5 @@ public class AirbnbApplication {
 		SpringApplication.run(AirbnbApplication.class, args);
 	}
 
+
 }
