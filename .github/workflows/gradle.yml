@@ -74,6 +74,6 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: | 
-          docker pull rxdcxdrnine/airbnb:latest
-          docker stop airbnb-server && docker rm airbnb-server
-          docker run -d --name airbnb-server -p 8080:8080 rxdcxdrnine/airbnb:latest
+          sudo docker pull rxdcxdrnine/airbnb:latest
+          sudo docker stop airbnb-server && docker rm airbnb-server
+          sudo docker run -d --name airbnb-server -p 8080:8080 rxdcxdrnine/airbnb:latest
