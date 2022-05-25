@@ -16,7 +16,6 @@ jobs:
         working-directory: ./backend
 
     steps:
-    ## gradle tasks
     - uses: actions/checkout@v3
     
     - name: Set up JDK 11
