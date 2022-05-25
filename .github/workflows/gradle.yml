@@ -29,6 +29,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+        
+    - name: Move directory to backend
+      run: cd backend
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
