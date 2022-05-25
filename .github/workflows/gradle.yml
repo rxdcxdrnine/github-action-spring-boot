@@ -61,7 +61,7 @@ jobs:
         tags: rxdcxdrnine/airbnb:latest
 
   deploy:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged
     needs: build
     runs-on: ubuntu-latest
 
