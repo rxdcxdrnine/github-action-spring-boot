@@ -10,12 +10,14 @@ name: Java CI with Gradle
 on:
   pull_request:
     branches: [ backend-dev ]
+    types: [ closed ]
 
 permissions:
   contents: read
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     defaults:
@@ -38,8 +40,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test
       
-    - name: Test with Gradle
-      run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
+    # - name: Test with Gradle
+    #   run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
 
     ## docker tasks
     - name: Set up Docker Buildx
