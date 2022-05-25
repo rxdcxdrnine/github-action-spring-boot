@@ -72,7 +72,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
+        password: ${{ secrets.EC2_PASSWORD }}
         scripts: 
           docker pull rxdcxdrnine/airbnb:latest
           docker stop airbnb-server && docker rm airbnb-server
