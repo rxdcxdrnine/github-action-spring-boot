@@ -5,3 +5,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: team-2
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/schema.sql
