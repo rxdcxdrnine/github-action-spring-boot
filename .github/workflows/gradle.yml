@@ -59,6 +59,7 @@ jobs:
         tags: rxdcxdrnine/airbnb:latest
 
   deploy:
+    if: github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-latest
 
@@ -71,5 +72,5 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: | 
           sudo docker pull rxdcxdrnine/airbnb:latest
-          sudo docker stop airbnb-server && docker rm airbnb-server
+          sudo docker stop airbnb-server && sudo docker rm airbnb-server
           sudo docker run -d --name airbnb-server -p 8080:8080 rxdcxdrnine/airbnb:latest
