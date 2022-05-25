@@ -34,6 +34,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
+    - name: Google Java Format
+      uses: axel-op/googlejavaformat-action@v3.6.0
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
