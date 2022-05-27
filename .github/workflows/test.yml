@@ -1,4 +1,4 @@
-name: Build and Test for Continuous Integration
+name: Test for Continuous Integration
 
 on:
   pull_request:
@@ -26,9 +26,6 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
-    - name: Build with Gradle
-      run: ./gradlew clean build -x test
       
     - name: Test with Gradle
       run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
