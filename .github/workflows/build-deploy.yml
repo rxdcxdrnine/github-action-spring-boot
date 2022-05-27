@@ -1,16 +1,18 @@
 name: Build and Deploy of Continuous Deployment
 
 on:
-  pull_request:
-    branches: [ backend-dev ]
-    types: [ closed ]
+  push:
+    branches: [ feature/#4-sample-feature ]
+#   pull_request:
+#     branches: [ backend-dev ]
+#     types: [ closed ]
 
 permissions:
   contents: read
 
 jobs:
   build:
-    if: github.event.pull_request.merged
+#     if: github.event.pull_request.merged
     runs-on: ubuntu-latest
 
     defaults:
@@ -26,6 +28,17 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+
+    - name: Create grype configuration
+      run: |
+        echo "current directory"
+        pwd
+        cd ./backend/src/main/resource
+        touch ./application-prod.yml
+        echo $PROD_PROP >> ./application-dev.properties
+        cat application-dev.properties
+      env:
+        PROD_PROP: ${{ secrets.PROD_PROPERTIES }}
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
@@ -50,19 +63,19 @@ jobs:
         push: true
         tags: rxdcxdrnine/airbnb:latest
 
-  deploy:
-    if: github.event.pull_request.merged
-    needs: build
-    runs-on: ubuntu-latest
+#   deploy:
+#     if: github.event.pull_request.merged
+#     needs: build
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Docker Pull and Run on EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: | 
-          sudo docker pull rxdcxdrnine/airbnb:latest
-          sudo docker stop airbnb-server && sudo docker rm airbnb-server
-          sudo docker run -d --name airbnb-server -p 8080:8080 rxdcxdrnine/airbnb:latest
+#     steps:
+#     - name: Docker Pull and Run on EC2
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.EC2_HOST }}
+#         username: ${{ secrets.EC2_USERNAME }}
+#         key: ${{ secrets.EC2_SSH_KEY }}
+#         script: | 
+#           sudo docker pull rxdcxdrnine/airbnb:latest
+#           sudo docker stop airbnb-server && sudo docker rm airbnb-server
+#           sudo docker run -d --name airbnb-server -p 8080:8080 rxdcxdrnine/airbnb:latest
