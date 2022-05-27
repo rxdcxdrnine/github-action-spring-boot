@@ -34,8 +34,8 @@ jobs:
         cd ./src/main/resources
         touch ./application-prod.properties
         echo spring.datasource.url="$DATASOURCE_URL" >> ./application-prod.properties
-        echo spring.datasource.url="$DATASOURCE_USERNAME" >> ./application-prod.properties
-        echo spring.datasource.url="$DATASOURCE_PASSWORD" >> ./application-prod.properties
+        echo spring.datasource.username="$DATASOURCE_USERNAME" >> ./application-prod.properties
+        echo spring.datasource.password="$DATASOURCE_PASSWORD" >> ./application-prod.properties
         echo spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver >> ./application-prod.properties
       env:
         DATASOURCE_URL: ${{ secrets.DATASOURCE_URL }}
