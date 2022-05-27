@@ -29,14 +29,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Create grype configuration
+    - name: create application-prod.yml
       run: |
         echo "current directory"
         pwd
-        cd ./backend/src/main/resource
+        cd ./src/main/resource
         touch ./application-prod.yml
-        echo $PROD_PROP >> ./application-dev.properties
-        cat application-dev.properties
+        echo $PROD_PROPERTIES >> ./application-prod.yml
+        cat application-prod.yml
       env:
         PROD_PROP: ${{ secrets.PROD_PROPERTIES }}
 
