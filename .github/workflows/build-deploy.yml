@@ -33,7 +33,7 @@ jobs:
       run: |
         echo "current directory"
         pwd
-        cd ./src/main/resource
+        cd ./src/main/resources
         touch ./application-prod.yml
         echo $PROD_PROPERTIES >> ./application-prod.yml
         cat application-prod.yml
