@@ -1,18 +1,16 @@
-name: Build and Deploy of Continuous Deployment
+name: Build and Deploy for Continuous Deployment
 
 on:
-  push:
-    branches: [ feature/#8-sample-feature ]
   pull_request:
-#     branches: [ backend-dev ]
-#     types: [ closed ]
+    branches: [ backend-dev ]
+    types: [ closed ]
 
 permissions:
   contents: read
 
 jobs:
   build:
-#     if: github.event.pull_request.merged
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
 
     defaults:
@@ -29,14 +27,13 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: create application-prod.properties
+    - name: Create application-prod.properties
       run: |
         cd ./src/main/resources
         touch ./application-prod.properties
         echo spring.datasource.url="$DATASOURCE_URL" >> ./application-prod.properties
         echo spring.datasource.username="$DATASOURCE_USERNAME" >> ./application-prod.properties
         echo spring.datasource.password="$DATASOURCE_PASSWORD" >> ./application-prod.properties
-        echo spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver >> ./application-prod.properties
       env:
         DATASOURCE_URL: ${{ secrets.DATASOURCE_URL }}
         DATASOURCE_USERNAME: ${{ secrets.DATASOURCE_USERNAME }}
@@ -66,7 +63,7 @@ jobs:
         tags: rxdcxdrnine/airbnb:latest
 
   deploy:
-#     if: github.event.pull_request.merged
+    if: github.event.pull_request.merged
     needs: build
     runs-on: ubuntu-latest
 
