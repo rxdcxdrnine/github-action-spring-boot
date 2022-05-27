@@ -27,11 +27,11 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: create application-prod.yml
+    - name: create application-prod.properties
       run: |
         cd ./src/main/resources
-        touch ./application-prod.yml
-        echo $PROD_PROP >> ./application-prod.yml
+        touch ./application-prod.properties
+        echo $PROD_PROP >> ./application-prod.properties
       env:
         PROD_PROP: ${{ secrets.PROD_PROP }}
 
